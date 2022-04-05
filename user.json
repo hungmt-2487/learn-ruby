@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "Quan",
+    "role": "admin",
+    "user_name": "quan",
+    "password": "111"
+  },
+  {
+    "id": 2,
+    "name": "Viet",
+    "role": "user",
+    "user_name": "viet",
+    "password": "111"
+  },
+  {
+    "id": 3,
+    "name": "Luan",
+    "role": "user",
+    "user_name": "luan",
+    "password": "111"
+  },
+  {
+    "id": 4,
+    "name": "Hung",
+    "role": "admin",
+    "user_name": "hung",
+    "password": "111"
+  },
+  {
+    "id": 5,
+    "name": "Toan",
+    "role": "admin",
+    "user_name": "toan",
+    "password": "111"
+  }
+]
