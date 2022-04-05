@@ -14,8 +14,10 @@
 require 'json'
 
 $user_info = JSON.parse(File.read('./user.json'))
+$computer_info = JSON.parse(File.read('./computers.json'))
 
 def login
+  p "********* LOGIN *************"
   print "Nhap username: "
   username = gets.chomp
 
@@ -25,7 +27,7 @@ def login
   user = $user_info.find{|e| e["user_name"] == username && e["password"] == pass_word}
 
   if user
-    p "Dang nhap thanh cong"
+    p "Dang nhap thanh cong, role: #{user["role"]}"
     return user["role"]
   else
     p "Dang nhap that bai"
@@ -33,6 +35,7 @@ def login
 end
 
 def create_user
+  p "********* THEM USER *************"
   print "Nhap id: "
   id = gets.chomp.to_i
 
@@ -58,10 +61,12 @@ def create_user
 end
 
 def update_user
+  p "********* SUA USER *************"
 
 end
 
 def delete_user
+  p "********* XOA USER *************"
   print "Nhap id user can xoa: "
   id = gets.chomp.to_i
 
@@ -72,12 +77,52 @@ def delete_user
   end
 end
 
+def create_computer
+  p "********* THEM COMPUTER *************"
+  print "Nhap id: "
+  id = gets.chomp.to_i
+
+  print "Nhap name: "
+  name = gets.chomp
+
+  print "Nhap code: "
+  role = gets.chomp
+
+  print "Nhap info: "
+  info = gets.chomp
+
+  computer = {"id": id, "name": name, "code": code, "info": info}
+
+  new_computer_info = $computer_info.push(computer)
+
+  File.open("./computers.json", "w") do |f|
+    f.puts JSON.pretty_generate(new_computer_info) 
+  end
+end
+
+def update_computer
+  p "********* SUA COMPUTER *************"
+
+end
+
+def delete_computer
+  p "********* XOA COMPUTER *************"
+  print "Nhap id computer can xoa: "
+  id = gets.chomp.to_i
+
+  new_computer_info = $computer_info.select{|cp| cp["id"] != id}
+
+  File.open("./computers.json", "w") do |f|
+    f.puts JSON.pretty_generate(new_computer_info) 
+  end
+end
+
 def find_computer
+  p "********* TIM KIEM COMPUTER *************"
   print "Nhap id computer: "
   id = gets.chomp.to_i
 
-  computer_info = JSON.parse(File.read('./computers.json'))
-  result = computer_info.find{ |e| break e if e["id"] == id}
+  result = $computer_info.find{ |e| break e if e["id"] == id}
   p result
 end
 
@@ -86,6 +131,7 @@ def main
   
   case user_role
   when "admin"
+    p "********* MENU *************"
     p "1. Them user"
     p "2. Sua user"
     p "3. Xoa user"
@@ -103,11 +149,28 @@ def main
       update_user
     when 3
       delete_user
+    when 4
+      create_computer
+    when 5
+      update_computer
+    when 6
+      delete_computer
     when 7
       find_computer
+    else
+      exit
     end
   else
+    p "********* MENU *************"
     p "1. Tim kiem computer"
+    option = gets.chomp.to_i
+
+    case option
+    when 1
+      find_computer
+    else
+      exit
+    end
   end
 end
 
